@@ -9,17 +9,17 @@
       content="一个 macOS 菜单栏小工具，帮助你在擦拭 MacBook 时禁用键盘、触控板和屏幕。"
     />
     <style>
-  :root {
-    --bg: #ffffff;
-    --surface: #f6f8fa;
-    --border: #d0d7de;
-    --text: #1f2328;
-    --text-muted: #656d76;
-    --accent: #0969da;
-    --accent-hover: #0860ca;
-    --green: #1a7f37;
-    --radius: 12px;
-  }
+      :root {
+        --bg: #ffffff;
+        --surface: #f6f8fa;
+        --border: #d0d7de;
+        --text: #1f2328;
+        --text-muted: #656d76;
+        --accent: #0969da;
+        --accent-hover: #0860ca;
+        --green: #1a7f37;
+        --radius: 12px;
+      }
 
       * {
         margin: 0;
@@ -46,7 +46,8 @@
       /* Hero */
       .hero {
         text-align: center;
-        padding: 100px 0 80px;
+        padding: 80px 0 80px;
+        scroll-margin-top: 70px;
       }
 
       .hero-icon {
@@ -55,13 +56,13 @@
         filter: drop-shadow(0 0 20px rgba(9, 105, 218, 0.15));
       }
 
-  .hero h1 {
-    font-size: 52px;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 16px;
-    color: var(--text);
-  }
+      .hero h1 {
+        font-size: 52px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        margin-bottom: 16px;
+        color: var(--text);
+      }
 
       .hero .subtitle {
         font-size: 22px;
@@ -82,13 +83,13 @@
         border-radius: var(--radius);
         text-decoration: none;
         transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(9, 105, 218, 0.25);
-  }
+        box-shadow: 0 2px 8px rgba(9, 105, 218, 0.25);
+      }
 
-  .download-btn:hover {
-    background: var(--accent-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(9, 105, 218, 0.3);
+      .download-btn:hover {
+        background: var(--accent-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(9, 105, 218, 0.3);
       }
 
       .download-btn svg {
@@ -119,6 +120,7 @@
       /* Features */
       .features {
         padding: 80px 0;
+        scroll-margin-top: 70px;
       }
 
       .features h2 {
@@ -167,6 +169,7 @@
       /* How it works */
       .how-it-works {
         padding: 80px 0;
+        scroll-margin-top: 70px;
       }
 
       .how-it-works h2 {
@@ -297,8 +300,89 @@
         text-decoration: underline;
       }
 
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .navbar-brand:hover {
+        color: var(--accent);
+      }
+
+      .navbar-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .navbar-links a {
+        font-size: 14px;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .navbar-links a:hover {
+        color: var(--accent);
+      }
+
+      .navbar-links .github-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 14px;
+        font-weight: 500;
+        color: var(--text);
+        transition: all 0.2s;
+      }
+
+      .navbar-links .github-link:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .navbar-links .github-link svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
       /* Responsive */
       @media (max-width: 640px) {
+        .navbar .container {
+          height: 48px;
+        }
+        .navbar-brand {
+          font-size: 15px;
+        }
+        .navbar-links a:not(.github-link) {
+          display: none;
+        }
         .hero {
           padding: 60px 0 50px;
         }
@@ -320,6 +404,27 @@
     </style>
   </head>
   <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="#" class="navbar-brand">✨ CleanMyMacBook</a>
+        <div class="navbar-links">
+          <a href="#features">功能</a>
+          <a href="#how-it-works">使用</a>
+          <a
+            href="https://github.com/ikun-Lg/CleanMyMacBook"
+            class="github-link"
+          >
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </nav>
+
     <section class="hero">
       <div class="container">
         <div class="hero-icon">✨</div>
@@ -354,7 +459,7 @@
       </div>
     </section>
 
-    <section class="features">
+    <section class="features" id="features">
       <div class="container">
         <h2>功能特性</h2>
         <div class="feature-grid">
@@ -392,7 +497,7 @@
       </div>
     </section>
 
-    <section class="how-it-works">
+    <section class="how-it-works" id="how-it-works">
       <div class="container">
         <h2>使用步骤</h2>
         <div class="steps">
