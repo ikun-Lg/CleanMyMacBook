@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CleanMyMacBook — MacBook 清洁助手</title>
+    <meta
+      name="description"
+      content="一个 macOS 菜单栏小工具，帮助你在擦拭 MacBook 时禁用键盘、触控板和屏幕。"
+    />
+    <style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f6f8fa;
+    --border: #d0d7de;
+    --text: #1f2328;
+    --text-muted: #656d76;
+    --accent: #0969da;
+    --accent-hover: #0860ca;
+    --green: #1a7f37;
+    --radius: 12px;
+  }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+          Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 100px 0 80px;
+      }
+
+      .hero-icon {
+        font-size: 72px;
+        margin-bottom: 24px;
+        filter: drop-shadow(0 0 20px rgba(9, 105, 218, 0.15));
+      }
+
+  .hero h1 {
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+      .hero .subtitle {
+        font-size: 22px;
+        color: var(--text-muted);
+        margin-bottom: 40px;
+        font-weight: 400;
+      }
+
+      .download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 16px 36px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(9, 105, 218, 0.25);
+  }
+
+  .download-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(9, 105, 218, 0.3);
+      }
+
+      .download-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+
+      .download-note {
+        margin-top: 14px;
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      /* Screenshot */
+      .screenshot {
+        text-align: center;
+        padding: 20px 0 80px;
+      }
+
+      .screenshot img {
+        max-width: 100%;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Features */
+      .features {
+        padding: 80px 0;
+      }
+
+      .features h2 {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 60px;
+        letter-spacing: -0.02em;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+      }
+
+      .feature-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 32px;
+        transition: border-color 0.2s;
+      }
+
+      .feature-card:hover {
+        border-color: var(--accent);
+      }
+
+      .feature-card .icon {
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+
+      .feature-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .feature-card p {
+        font-size: 15px;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      /* How it works */
+      .how-it-works {
+        padding: 80px 0;
+      }
+
+      .how-it-works h2 {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 60px;
+        letter-spacing: -0.02em;
+      }
+
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .step {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+
+      .step-number {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .step-content h3 {
+        font-size: 17px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .step-content p {
+        font-size: 15px;
+        color: var(--text-muted);
+      }
+
+      /* Install */
+      .install {
+        padding: 80px 0;
+        text-align: center;
+      }
+
+      .install h2 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .install-methods {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 40px;
+        flex-wrap: wrap;
+      }
+
+      .install-method {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px 32px;
+        min-width: 200px;
+        text-align: left;
+      }
+
+      .install-method h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+      }
+
+      .install-method code {
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 14px;
+        color: var(--green);
+      }
+
+      /* System requirements */
+      .requirements {
+        padding: 0 0 80px;
+        text-align: center;
+      }
+
+      .requirements p {
+        font-size: 15px;
+        color: var(--text-muted);
+      }
+
+      .requirements strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      footer p {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .hero {
+          padding: 60px 0 50px;
+        }
+        .hero h1 {
+          font-size: 36px;
+        }
+        .hero .subtitle {
+          font-size: 18px;
+        }
+        .features h2,
+        .how-it-works h2,
+        .install h2 {
+          font-size: 28px;
+        }
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-icon">✨</div>
+        <h1>CleanMyMacBook</h1>
+        <p class="subtitle">一键禁用键盘、触控板和屏幕，安心擦拭 MacBook</p>
+        <a
+          href="https://github.com/ikun-Lg/CleanMyMacBook/releases/download/v1.0.0/CleanMyMacBook.dmg"
+          class="download-btn"
+          id="downloadBtn"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2L12 17M12 17L7 12M12 17L17 12M5 21H19"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              fill="none"
+            />
+          </svg>
+          下载 DMG
+        </a>
+        <p class="download-note" id="downloadNote">
+          macOS 13.0+ · ARM / Intel 通用
+        </p>
+      </div>
+    </section>
+
+    <section class="screenshot">
+      <div class="container">
+        <img src="../image.png" alt="CleanMyMacBook 应用截图" width="720" />
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <h2>功能特性</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="icon">⌨️</div>
+            <h3>禁用键盘</h3>
+            <p>拦截所有按键输入，放心擦拭键盘不留误触</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🖱️</div>
+            <h3>禁用触控板</h3>
+            <p>拦截点击、移动与滚动，清洁触控板无干扰</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🌑</div>
+            <h3>纯黑屏幕</h3>
+            <p>全屏黑色遮罩，灰尘污渍一目了然</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">⏎</div>
+            <h3>快速退出</h3>
+            <p>按住 Esc 键 2 秒即可退出清洁模式</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🔒</div>
+            <h3>安全透明</h3>
+            <p>不收集任何数据，所有操作本地完成</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🪶</div>
+            <h3>轻量原生</h3>
+            <p>SwiftUI 构建，菜单栏常驻，几乎零资源占用</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>使用步骤</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>下载并安装</h3>
+              <p>下载 DMG 文件，将 CleanMyMacBook 拖入 Applications 文件夹</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>选择清洁选项</h3>
+              <p>点击菜单栏图标，勾选要禁用的功能：键盘、触控板、黑屏</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>开始清洁</h3>
+              <p>点击「开始清洁」，首次使用会请求辅助功能权限</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>退出清洁模式</h3>
+              <p>按住 Esc 键 2 秒，所有功能恢复正常</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="install">
+      <div class="container">
+        <h2>安装方式</h2>
+        <p style="color: var(--text-muted); font-size: 16px">
+          选择适合你的方式开始使用
+        </p>
+        <div class="install-methods">
+          <div class="install-method">
+            <h4>下载</h4>
+            <code>DMG → Applications</code>
+          </div>
+          <div class="install-method">
+            <h4>源码构建</h4>
+            <code>./build_dmg.sh</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="requirements">
+      <div class="container">
+        <p>
+          <strong>系统要求：</strong>macOS 13.0 (Ventura) 或更高 · Apple Silicon
+          / Intel 通用
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>
+          <a href="https://github.com/luoguang/CleanMyMacBook">GitHub</a> · MIT
+          License · CleanMyMacBook
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Detect OS and show relevant info
+      const ua = navigator.userAgent;
+      const isMac = /Mac|iPod|iPhone|iPad/.test(ua);
+      const btn = document.getElementById("downloadBtn");
+      const note = document.getElementById("downloadNote");
+
+      if (!isMac) {
+        note.textContent = "⚠️ 此应用仅支持 macOS";
+        btn.style.opacity = "0.6";
+        btn.addEventListener("click", (e) => {
+          alert("CleanMyMacBook 是 macOS 专属应用，请在 Mac 上下载。");
+        });
+      }
+    </script>
+  </body>
+</html>
